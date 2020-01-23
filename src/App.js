@@ -4,8 +4,10 @@ import Header from './components/Header';
 import AddedFeatures from './components/AddedFeatures';
 import AdditionalFeatures from './components/AdditionalFeatures';
 import Total from './components/Total';
+import {buyItem, removeFeature} from './actions/actions.js';
+import { connect } from 'react-redux';
 
-const App = () => {
+const App = (props) => {
   const state = {
     additionalPrice: 0,
     car: {
@@ -29,20 +31,29 @@ const App = () => {
 
   const buyItem = item => {
     // dipsatch an action here to add an item
+    return { type: 'ADD_FEATURE', payload: item };
   };
 
   return (
     <div className="boxes">
       <div className="box">
-        <Header car={state.car} />
-        <AddedFeatures car={state.car} />
+        <Header car={props.car} additionalPrice={props.additionalPrice} />
+        <AddedFeatures removeFeature={props.removeFeature} car={props.car} />
       </div>
       <div className="box">
-        <AdditionalFeatures additionalFeatures={state.additionalFeatures} />
-        <Total car={state.car} additionalPrice={state.additionalPrice} />
+        <AdditionalFeatures addFeature={props.buyItem} additionalFeatures={props.additionalFeatures} />
+        <Total car={props.car} additionalPrice={props.additionalPrice} />
       </div>
     </div>
   );
 };
 
-export default App;
+const mapStateToProps = state => {
+  return {
+    car: state.car,
+    additionalFeatures: state.additionalFeatures,
+    additionalPrice: state.additionalPrice
+  }
+}
+
+export default connect(mapStateToProps, { buyItem, removeFeature })(App);
