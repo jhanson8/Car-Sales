@@ -13,9 +13,9 @@ const AdditionalFeature = props => {
   );
 };
 
-// export default AdditionalFeature;
 
 
+//
 const mapStateToProps = state => {
   console.log(state)
   return {
