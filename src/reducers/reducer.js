@@ -41,6 +41,12 @@ export const addReducer = (state = initialState, action) => {
                     features: [... state.car.features.filter(feature => feature.id !== action.payload.id)
                     ]
                 }
+    };
+    //price case
+    case 'UPDATE_PRICE':
+    return{
+
+      
     }
 
     default:
